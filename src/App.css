@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+
+.cursor-left {
+  cursor: url('../src/assets/left-arrow.png'), auto;
+}
+
+.cursor-right {
+  cursor: url('../src/assets/right-arrow.png'), auto;
+}
