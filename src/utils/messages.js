@@ -24,6 +24,15 @@ export const messages = {
         footerTitle: "Never miss a beat.",
         footerDescription: "Sign up now to stay in the loop and get access to exclusive offers. You can unsubscribe at any time.",
         footerCopyright: "© 2024 Dongju. All rights reserved.",
+        // Success messages
+        emailUploadSuccess: "Email uploaded successfully!",
+        // Error messages
+        emailUploadError: "An error occurred while uploading the email.",
+        // Validation messages
+        invalidEmailError: "Please enter a valid email address.",
+        // Other messages
+        subscriptionConfirmation: "You've successfully subscribed!",
+        unsubscribeSuccess: "You've successfully unsubscribed.",
     },
     cn: {
         home: "首页",
@@ -49,6 +58,15 @@ export const messages = {
         footerTitle: "不错过任何消息",
         footerDescription: "立即登入，随时获取最新信息。您可以随时取消订阅。",
         footerCopyright: "© 2024 Dongju. 版权所有。",
+         // 成功消息
+         emailUploadSuccess: "Email上传成功！",
+         // 错误消息
+         emailUploadError: "上传Email时发生错误。",
+         // 验证消息
+         invalidEmailError: "请输入有效的邮箱地址。",
+         // 其他消息
+         subscriptionConfirmation: "您已成功订阅！",
+         unsubscribeSuccess: "您已成功取消订阅。",
     },
     // 其他语言的翻译...
 };
