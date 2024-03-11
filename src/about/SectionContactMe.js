@@ -6,7 +6,6 @@ import cooking from '../assets/profile/cooking.jpg'
 import eating from '../assets/profile/eating.jpg'
 import painting from '../assets/profile/painting.jpg'
 import traveling from '../assets/profile/traveling.jpg'
-import reading from '../assets/profile/reading.jpg'
 import cycling from '../assets/profile/cycling.jpg'
 import gaming from '../assets/profile/gaming.png'
 import music from '../assets/profile/music.jpg'
@@ -17,7 +16,6 @@ const dataList = [
     { name: "Hiking", image: hiking },
     { name: "Cooking", image: cooking},
     { name: "Cycling", image: cycling },
-    { name: "Reading", image: reading },
     { name: "Movie", image: movie }, // 这里使用了导入的图片路径
     { name: "Painting", image: painting },
     { name: "Gaming", image: gaming },

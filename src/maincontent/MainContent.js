@@ -36,7 +36,7 @@ const Card = ({ name, price, imageUrl }) => {
         )}
         {imageLoaded && (
           <img
-            className="w-full h-64 md:h-72 object-cover"
+            className="w-full h-64 md:h-72 object-cover "
             src={imageUrl}
             alt={name}
             onLoad={() => setImageLoaded(true)}
@@ -59,12 +59,20 @@ const MainContent = () => {
   const softwareRef = useRef(null);
   const hardwareRef = useRef(null);
 
+  const bucketName = process.env.REACT_APP_BUCKET_NAME;
+  const region = process.env.REACT_APP_REGION_CODE;
+  const hardwarePath = process.env.REACT_APP_HARDWARE_PATH;
+  const hardwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${hardwarePath}`;
+
+  const softwarePath = process.env.REACT_APP_SOFTWARE_PATH;
+  const softwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${softwarePath}`;
+
   // 动态加载software部分
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some(entry => entry.isIntersecting)) {
-          fetch('https://dongju.obs.cn-north-4.myhuaweicloud.com/test.json')
+          fetch(softwareJsonUrl)
             .then(response => response.json())
             .then(data => setSoftwareItems(data));
         }
@@ -78,7 +86,7 @@ const MainContent = () => {
     if (softwareRef.current) {
       observer.observe(softwareRef.current);
     }
-
+    console.log("softwareJsonUrl=",softwareJsonUrl)
     return () => observer.disconnect();
   }, []);
 
@@ -87,7 +95,7 @@ const MainContent = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some(entry => entry.isIntersecting)) {
-          fetch('https://dongju.obs.cn-north-4.myhuaweicloud.com/test2.json')
+          fetch(hardwareJsonUrl)
             .then(response => response.json())
             .then(data => setHardwareItems(data));
         }
@@ -101,15 +109,15 @@ const MainContent = () => {
     if (hardwareRef.current) {
       observer.observe(hardwareRef.current);
     }
-
+    console.log("hardwareJsonUrl=",hardwareJsonUrl)
     return () => observer.disconnect();
   }, []);
 
   return (
     <div className="flex-grow p-6 overflow-auto bg-gray-100 shadow">
       <Carousel />
-      <section ref={softwareRef} className="mt-4 sm:mt-4 md:mt-5 lg:mt-6 mb-4 sm:mb-8 md:mb-9 lg:mb-8 min-h-screen">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 text-gray-700">Software</h2>
+      <section ref={softwareRef} className="mt-4 sm:mt-10 md:mt-13 lg:mt-216 min-h-screen">
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-9 text-gray-700">Software</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
        
           {softwareItems.map((item) => (
@@ -117,7 +125,7 @@ const MainContent = () => {
           ))}
         </div>
       </section>
-      <section ref={hardwareRef} className="mt-4 sm:mt-4 md:mt-5 lg:mt-6 mb-4 sm:mb-8 md:mb-9 lg:mb-8 min-h-screen">
+      <section ref={hardwareRef} className="mt-4 sm:mt-10 mb-4 sm:mb-6 md:mb-8 lg:mb-9 min-h-screen">
         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 text-gray-700">Hardware</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
        

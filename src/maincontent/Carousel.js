@@ -12,8 +12,13 @@ const Carousel = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const bucketName = process.env.REACT_APP_BUCKET_NAME;
+            const region = process.env.REACT_APP_REGION_CODE;
+            const carouselPath = process.env.REACT_APP_CAROUSEL_PATH;
+            const carouselJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${carouselPath}`;
+
             try {
-                const response = await fetch('https://dongju.obs.cn-north-4.myhuaweicloud.com/CN/carousel/carousel.json');
+                const response = await fetch(carouselJsonUrl);
                 const data = await response.json();
                 let loadCounter = 0;
                 const imageData = data.map(item => ({ ...item, loaded: false }));
@@ -85,11 +90,8 @@ const Carousel = () => {
     const handleMouseLeave = () => setIsCountdownPaused(false);
 
     return (
-        <div className="flex flex-col shadow-md relative w-full mb-4 sm:mb-5 md:mb-6 lg:mb-7 rounded-2xl">
+        <div className="flex flex-col shadow-md relative w-full mb-4 sm:mb-5 md:mb-6 lg:mb-7 rounded-2xl bg-white">
             {isLoading ? (
-                // <div className="flex justify-center items-center h-48 md:h-160">
-                //     <video src={loadingAnimation} autoPlay loop muted />
-                // </div>
                 <div className="animate-pulse w-full h-48 md:h-160 rounded-2xl bg-slate-300"></div>
             ) : (
                 images.length > 0 && (
@@ -99,28 +101,25 @@ const Carousel = () => {
                         onMouseMove={handleMouseMove}
                         style={{ cursor: cursorType }}
                     >
-                        <div className="w-full h-80 sm-96 md:h-128 lg:h-144 xl:h-160 2xl:h-208 overflow-hidden rounded-2xl">
+                        <div className="w-full h-80 sm-96 md:h-128 lg:h-144 xl:h-160 2xl:h-208 overflow-hidden rounded-2xl" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                             {images[current].loaded ? ( // 根据图片的加载状态决定显示图片或是加载动画
                                 <>
                                     <img
                                         src={images[current].url}
                                         alt="Carousel"
-                                        className="w-full h-full object-fill rounded-2xl transition-height duration-300"
+                                        className="w-full h-full object-cover rounded-2xl transition-height duration-300"
                                     />
-                                    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                        <CountdownCircle
-                                            key={current}
-                                            duration={changeTime}
-                                            onComplete={() => setIsCountdownComplete(true)}
-                                            isCountdownPaused={isCountdownPaused}
-                                        />
-                                    </div>
+
+                                    <CountdownCircle
+                                        key={current}
+                                        duration={changeTime}
+                                        onComplete={() => setIsCountdownComplete(true)}
+                                        isCountdownPaused={isCountdownPaused}
+                                    />
+
                                 </>
                             ) : (
-                                // <div className="flex justify-center items-center h-full">
-                                //     <video src={loadingAnimation} autoPlay loop muted />
-                                // </div>
-                                 <div className="flex justify-center items-center h-full animate-pulse bg-slate-300 rounded-2xl"></div>
+                                <div className="flex justify-center items-center h-full animate-pulse bg-slate-300 rounded-2xl"></div>
                             )}
                         </div>
                     </div>

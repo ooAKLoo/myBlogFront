@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      strokeWidth: {
+        '3': '3px',
+        '4': '4px',
+      },
       aspectRatio: {
         '4/3': '4 / 3',
         '1/2': '1 / 2',

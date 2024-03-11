@@ -30,11 +30,11 @@ const CountdownCircle = ({ duration, onComplete, isCountdownPaused }) => {
         function handleResize() {
             // 根据窗口宽度调整大小
             if (window.innerWidth < 640) {
-                setSize(40); // 更小的屏幕使用更小的尺寸
-                setRadius(14);
+                setSize(20); // 更小的屏幕使用更小的尺寸
+                setRadius(8);
             } else {
-                setSize(50);
-                setRadius(18);
+                setSize(30);
+                setRadius(12);
             }
         }
 
@@ -51,17 +51,14 @@ const CountdownCircle = ({ duration, onComplete, isCountdownPaused }) => {
         <svg className="absolute bottom-0 right-0 m-4 transition-all duration-300" width={size} height={size}>
             {isCountdownPaused ? (
                 <>
-                    {/* 暂停符号：两个矩形 */}
-                    <rect x={size * 0.36} y={size * 0.3} width={size * 0.08} height={size * 0.4} fill="white"/>
-                    <rect x={size * 0.56} y={size * 0.3} width={size * 0.08} height={size * 0.4} fill="white"/>
                 </>
             ) : (
                 <>
                     {/* 倒计时圆环 */}
                     <circle
-                    className=' stroke-oliver-green'
-                        fill="transparent"
-                        strokeWidth="4"
+                    className=' stroke-gray-300 fill-transparent stroke-3 md:stroke-4 '
+                     
+                        // strokeWidth="4"
                         strokeDasharray={circumference}
                         style={{ strokeDashoffset }}
                         r={radius}
