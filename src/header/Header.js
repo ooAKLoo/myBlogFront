@@ -34,7 +34,7 @@ const Header = () => {
       <div className="flex justify-start">
         <img src={logo} alt="Logo" className="h-4 sm:h-8 mr-4" />
       </div>
-      <nav className="absolute text-xl font-semibold left-1/2 transform -translate-x-1/2">
+      <nav className="absolute text-base md:text-xl font-semibold left-1/2 transform -translate-x-1/2">
         <Link to={`/${languageCode}`} className="text-black px-4 hover:text-slate-200 transition duration-300">
           {intl.formatMessage({ id: 'home' })}
         </Link>
