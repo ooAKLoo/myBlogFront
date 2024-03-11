@@ -1,17 +1,8 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import SectionAboutMe from './SectionAboutMe';
 import SectionContactMe from './SectionContactMe';
 
-
-const About = ({ setLanguage }) => {
-
-    const { lang } = useParams();
-
-  useEffect(() => {
-    if (lang) setLanguage(lang);
-  }, [lang, setLanguage]);
-
+const About = () => {
 
     return (
         <>

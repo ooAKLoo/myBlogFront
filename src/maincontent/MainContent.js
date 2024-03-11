@@ -1,4 +1,5 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useIntl } from 'react-intl';
 import Carousel from './Carousel';
 
 const Card = ({ name, price, imageUrl }) => {
@@ -54,18 +55,22 @@ const Card = ({ name, price, imageUrl }) => {
 
 
 const MainContent = () => {
+  const intl = useIntl();
+
   const [softwareItems, setSoftwareItems] = useState([]);
   const [hardwareItems, setHardwareItems] = useState([]);
   const softwareRef = useRef(null);
   const hardwareRef = useRef(null);
 
+  const languageCode = window.location.pathname.split('/')[1] || 'en';
+
   const bucketName = process.env.REACT_APP_BUCKET_NAME;
   const region = process.env.REACT_APP_REGION_CODE;
   const hardwarePath = process.env.REACT_APP_HARDWARE_PATH;
-  const hardwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${hardwarePath}`;
-
+  const hardwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${languageCode.toUpperCase()}${hardwarePath}`;
+console.log("hardwareJsonUrl=",hardwareJsonUrl)
   const softwarePath = process.env.REACT_APP_SOFTWARE_PATH;
-  const softwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${softwarePath}`;
+  const softwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${languageCode.toUpperCase()}${softwarePath}`;
 
   // 动态加载software部分
   useEffect(() => {
@@ -86,7 +91,7 @@ const MainContent = () => {
     if (softwareRef.current) {
       observer.observe(softwareRef.current);
     }
-    console.log("softwareJsonUrl=",softwareJsonUrl)
+    console.log("softwareJsonUrl=", softwareJsonUrl)
     return () => observer.disconnect();
   }, []);
 
@@ -109,7 +114,7 @@ const MainContent = () => {
     if (hardwareRef.current) {
       observer.observe(hardwareRef.current);
     }
-    console.log("hardwareJsonUrl=",hardwareJsonUrl)
+    console.log("hardwareJsonUrl=", hardwareJsonUrl)
     return () => observer.disconnect();
   }, []);
 
@@ -117,18 +122,22 @@ const MainContent = () => {
     <div className="flex-grow p-6 overflow-auto bg-gray-100 shadow">
       <Carousel />
       <section ref={softwareRef} className="mt-4 sm:mt-10 md:mt-13 lg:mt-216 min-h-screen">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-9 text-gray-700">Software</h2>
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-9 text-gray-700">
+          {intl.formatMessage({ id: 'software' })}
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
-       
+
           {softwareItems.map((item) => (
             <Card key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
           ))}
         </div>
       </section>
       <section ref={hardwareRef} className="mt-4 sm:mt-10 mb-4 sm:mb-6 md:mb-8 lg:mb-9 min-h-screen">
-        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 text-gray-700">Hardware</h2>
+        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-5xl font-bold mb-4 text-gray-700">
+          {intl.formatMessage({ id: 'hardware' })}
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
-       
+
           {hardwareItems.map((item) => (
             <Card key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
           ))}

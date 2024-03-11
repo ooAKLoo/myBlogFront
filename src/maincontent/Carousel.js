@@ -12,10 +12,11 @@ const Carousel = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const languageCode = window.location.pathname.split('/')[1] || 'en';
             const bucketName = process.env.REACT_APP_BUCKET_NAME;
             const region = process.env.REACT_APP_REGION_CODE;
             const carouselPath = process.env.REACT_APP_CAROUSEL_PATH;
-            const carouselJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${carouselPath}`;
+            const carouselJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${languageCode.toUpperCase()}${carouselPath}`;
 
             try {
                 const response = await fetch(carouselJsonUrl);
