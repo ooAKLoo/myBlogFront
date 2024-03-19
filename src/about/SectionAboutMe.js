@@ -36,7 +36,7 @@ const SectionAboutMe = React.forwardRef((props, ref) => {
                 {intl.formatMessage({ id: 'aboutMe' })}
             </h1>
             <p className="sm:leading-loose md:leading-loose lg:leading-loose xl:leading-loose 2xl:leading-relaxed text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold">
-                {intl.formatMessage({ id: 'aboutMeDescription' })} {/* 确保你有为这个文本定义消息 */}
+                {intl.formatMessage({ id: 'aboutMeDescription' })} 
             </p>
         </div>
 

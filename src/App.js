@@ -8,6 +8,7 @@ import Header from './header/Header';
 import Footer from './footer/Footer';
 import Blog from './blog/Blog';
 import { messages } from './utils/messages'; // 确保这个路径正确
+import ScrollToTop from './utils/ScrollToTop';
 
 const App = () => {
   const language = window.location.pathname.split('/')[1] || 'en'; // 获取URL中的语言代码
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <Router>
+        <ScrollToTop />
       <div className="App">
         {/* <Header /> */}
         <IntlProvider locale={language} messages={currentMessages}>

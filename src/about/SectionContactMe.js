@@ -93,6 +93,21 @@ const SectionContactMe = React.forwardRef(() => {
     const [languageCode, setLanguageCode] = useState(window.location.pathname.split('/')[1] || 'en');
     const totalItems = 48; // Total items to display
     const headingRef = useRef(null);
+    // 状态：是否是宽屏模式
+    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > window.innerHeight);
+
+    // 检测屏幕尺寸变化的效果
+    useEffect(() => {
+        const handleResize = () => {
+            console.log("window.innerWidth > window.innerHeight?", window.innerWidth > window.innerHeight,window.innerWidth,window.innerHeight)
+            setIsWideScreen(window.innerWidth > window.innerHeight+1000);
+        };
+        // 监听窗口大小变化
+        window.addEventListener('resize', handleResize);
+
+        // 组件卸载时移除监听器
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -125,16 +140,23 @@ const SectionContactMe = React.forwardRef(() => {
             >
                 {languageCode == 'en' ? (
                     <>
-                     A few things <br /> about me
+                        A few things <br /> about me
                     </>
                 ) : (
                     <>
-                     啊!<br /> 生活
+                        啊!<br /> 生活
                     </>
                 )
                 }
             </h2>
-            <div className={`absolute w-full h-screen inset-0 flex items-center justify-center transition-opacity duration-500 ${showNewContent ? 'opacity-100 animate-expand-and-rise' : 'opacity-0'}`}>
+            <div
+                style={{
+                    width: isWideScreen ? `${window.innerHeight - 10}px` : '100%',
+                    height: '100vh', // 保持高度不变
+                    margin: 'auto', // 添加此行来使得容器水平居中
+                }}
+                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${showNewContent ? 'opacity-100 animate-expand-and-rise' : 'opacity-0'}`}
+            >
                 <div className="grid grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-8 animate-fadeIn w-full  h-full p-8 lg:p-20 text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold">
                     {distributedData.map((person, index) => (
                         <GridItem key={index} person={person} />

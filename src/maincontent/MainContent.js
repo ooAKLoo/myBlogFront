@@ -68,7 +68,7 @@ const MainContent = () => {
   const region = process.env.REACT_APP_REGION_CODE;
   const hardwarePath = process.env.REACT_APP_HARDWARE_PATH;
   const hardwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${languageCode.toUpperCase()}${hardwarePath}`;
-console.log("hardwareJsonUrl=",hardwareJsonUrl)
+
   const softwarePath = process.env.REACT_APP_SOFTWARE_PATH;
   const softwareJsonUrl = `https://${bucketName}.obs.${region}.myhuaweicloud.com/${languageCode.toUpperCase()}${softwarePath}`;
 
