@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import HomePage from './HomePage';
 import About from './about/About';
@@ -9,6 +9,7 @@ import Footer from './footer/Footer';
 import Blog from './blog/Blog';
 import { messages } from './utils/messages'; // 确保这个路径正确
 import ScrollToTop from './utils/ScrollToTop';
+import BlogDetail from './blog/BlogDetail';
 
 const App = () => {
   const language = window.location.pathname.split('/')[1] || 'en'; // 获取URL中的语言代码
@@ -16,16 +17,16 @@ const App = () => {
 
   return (
     <Router>
-        <ScrollToTop />
+      <ScrollToTop />
       <div className="App">
-        {/* <Header /> */}
         <IntlProvider locale={language} messages={currentMessages}>
-        <Header />
+          <Header />
           <Routes>
-          <Route path="/" element={<Navigate replace to="/en/" />} /> {/* 添加这行用于重定向 */}
+            <Route path="/" element={<Navigate replace to={`/${language}/`} />} /> {/* 添加这行用于重定向 */}
             <Route path="/:lang/" element={<HomePage />} />
             <Route path="/:lang/about" element={<About />} />
             <Route path="/:lang/blog" element={<Blog />} />
+            <Route path="/:lang/blog/:id" element={<BlogDetail />} />
             {/* 你可以根据需要添加更多路由 */}
           </Routes>
           <Footer />

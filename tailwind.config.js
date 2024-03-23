@@ -70,10 +70,6 @@ module.exports = {
             transform: 'translateY(20px) scale(0)'
           }
         },
-        blink: {
-          '0%, 100%': { opacity: 0 },
-          '50%': { opacity: 1 },
-        },
       },
       animation: {
         slideIn: 'slideIn 2s ease forwards',
@@ -82,9 +78,6 @@ module.exports = {
         'slide-in-right': 'slideInRight 1s ease-out forwards',
         'slide-and-shrink': 'slideAndShrink 2s ease forwards',
         'expand-and-rise': 'expandAndRise 2.5s ease-out forwards',
-        'blink-normal': 'blink 1.5s infinite',
-        'blink-delay-1': 'blink 1.5s infinite 0.5s',
-        'blink-delay-2': 'blink 1.5s infinite 1s',
       },
       fontFamily: {
         custom: ['content', 'sans-serif'],

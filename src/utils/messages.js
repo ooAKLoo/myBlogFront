@@ -33,6 +33,7 @@ export const messages = {
         // Other messages
         subscriptionConfirmation: "You've successfully subscribed!",
         unsubscribeSuccess: "You've successfully unsubscribed.",
+        "$ grep . . . ": "$ grep . . . ",
     },
     cn: {
         home: "首页",
@@ -67,6 +68,7 @@ export const messages = {
          // 其他消息
          subscriptionConfirmation: "您已成功订阅！",
          unsubscribeSuccess: "您已成功取消订阅。",
+         "$ grep . . . ": "$ grep . . . ",
     },
     // 其他语言的翻译...
 };

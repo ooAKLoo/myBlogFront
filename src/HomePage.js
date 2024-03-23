@@ -6,11 +6,9 @@ import MainContent from './maincontent/MainContent'; // 确保路径正确
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <Header /> */}
       <div className="flex-grow">
         <MainContent />
       </div>
-      {/* <Footer /> */}
     </div>
   );
 }
