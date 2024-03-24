@@ -43,7 +43,7 @@ const BlogDetail = () => {
 
     useEffect(() => {
         // 根据id选择对应的Markdown文件
-        const fileName = id === '0' ? 'bt.md' : id === '1' ? 'bt2.md' : id === '2' ? 'bt3.md' : null;
+        const fileName = id === '0' ? 'bt.md' : id === '1' ? 'bt2.md' : id === '2' ? 'bt4.md' : null;
         if (fileName) {
             // 构造文件的URL
             const fileUrl = `https://dongju.obs.cn-north-4.myhuaweicloud.com/${fileName}`;
@@ -121,8 +121,8 @@ const BlogDetail = () => {
                     }
                     const btn = document.createElement('button');
                     btn.textContent = 'Copy';
-                    btn.style.marginRight = '10px';
-                    btn.style.padding = '5px';
+                    btn.style.marginRight = '20px';
+                    btn.style.padding = '0px';
                     btn.onclick = function () {
                         navigator.clipboard.writeText(block.textContent)
                             .then(() => {

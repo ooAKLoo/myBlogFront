@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import Carousel from './Carousel';
 
-const Card = ({ name, price, imageUrl }) => {
+const ProductCard = ({ name, price, imageUrl }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef(null);
 
@@ -32,16 +32,17 @@ const Card = ({ name, price, imageUrl }) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer" ref={imageRef}>
       <div className='h-164 overflow-hidden'>
-        {!imageLoaded && (
-          <div className="animate-pulse w-full h-48 md:h-72 bg-slate-300 rounded-lg"></div>
-        )}
-        {imageLoaded && (
+        {!imageLoaded ? (
+          <div className="animate-pulse w-full h-48 md:h-72 bg-slate-300 rounded-t-lg"></div>
+        ):(
+          <>
           <img
             className="w-full h-64 md:h-72 object-cover "
             src={imageUrl}
             alt={name}
             onLoad={() => setImageLoaded(true)}
           />
+          </>
         )}
       </div>
       <div className="p-4">
@@ -128,7 +129,7 @@ const MainContent = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
 
           {softwareItems.map((item) => (
-            <Card key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
+            <ProductCard key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
           ))}
         </div>
       </section>
@@ -139,7 +140,7 @@ const MainContent = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
 
           {hardwareItems.map((item) => (
-            <Card key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
+            <ProductCard key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
           ))}
         </div>
       </section>
