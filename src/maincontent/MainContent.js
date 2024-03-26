@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import Carousel from './Carousel';
+import ipad from '../assets/iapd.jpeg'
 
 const ProductCard = ({ name, price, imageUrl }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -34,20 +35,25 @@ const ProductCard = ({ name, price, imageUrl }) => {
       <div className='h-164 overflow-hidden'>
         {!imageLoaded ? (
           <div className="animate-pulse w-full h-48 md:h-72 bg-slate-300 rounded-t-lg"></div>
-        ):(
+        ) : (
           <>
-          <img
-            className="w-full h-64 md:h-72 object-cover "
-            src={imageUrl}
-            alt={name}
-            onLoad={() => setImageLoaded(true)}
-          />
+            <div className="p-6 flex w-full  flex-row sm:flex-col">
+              <div className="flex flex-col flex-1 sm:mr-4 sm:mb-8 justify-center">
+                <div className="mb-2">偶墨</div>
+                <h3 className="text-sm sm:text-md md:text-lg lg:text-xl font-semibold">{price}</h3>
+                <div className="mt-2 text-slate-400">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+              </div>
+              <div className="flex w-1/2 sm:w-full  sm:items-center">
+                <img
+                  className="flex w-full h-44 md:h-72 object-contain "
+                  src={imageUrl}
+                  alt={name}
+                  onLoad={() => setImageLoaded(true)}
+                /></div>
+            </div>
+
           </>
         )}
-      </div>
-      <div className="p-4">
-        <h3 className="text-sm sm:text-md md:text-lg lg:text-xl font-semibold">{name}</h3>
-        <p className="text-xs sm:text-sm md:text-md lg:text-lg text-gray-600">{price}</p>
       </div>
     </div>
   );
@@ -129,7 +135,7 @@ const MainContent = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
 
           {softwareItems.map((item) => (
-            <ProductCard key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
+            <ProductCard key={item.name} name={item.name} price={`记偶思，用偶墨`} imageUrl={item.url} />
           ))}
         </div>
       </section>
@@ -140,7 +146,7 @@ const MainContent = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-6">
 
           {hardwareItems.map((item) => (
-            <ProductCard key={item.name} name={item.name} price={`$${item.price}.00 USD`} imageUrl={item.url} />
+            <ProductCard key={item.name} name={item.name} price={`记偶思，用偶墨`} imageUrl={item.url} />
           ))}
         </div>
       </section>

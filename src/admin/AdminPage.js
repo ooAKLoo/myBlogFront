@@ -3,6 +3,9 @@ import { useAuth } from '../AuthContext';
 import AddBlogModalContent from './blogModal/AddBlogModalContent ';
 import DeleteBlogModalContent from './blogModal/DeleteBlogModalContent ';
 import EditBlogModalContent from './blogModal/EditBlogModalContent ';
+import AddWareModal from './homeModal/AddWareModal';
+import EditWareModal from './homeModal/EditWareModal';
+import CarouselEditModal from './homeModal/CarouselEditModal';
 
 const AdminPage = () => {
   const { user } = useAuth();
@@ -11,7 +14,7 @@ const AdminPage = () => {
 
   // 为每个部分定义不同的操作
   const sectionOperations = {
-    Home: ["S_Add", "Edit","H_Add"],
+    Home: ["S_Add", "S_Edit","H_Add","H_Edit","C_Edit"],
     Blog: ["Add", "Delete", "Edit"],
     About: ["Edit", "Query"],
   };
@@ -59,16 +62,25 @@ const Section = ({ title, operations, openModal }) => (
 );
 
 const getIconForAction = (action) => {
+  // 定义图标
   const icons = {
     Add: "➕",
-    S_Add: "➕",
-    H_Add: "➕",
     Delete: "🗑️",
     Edit: "✏️",
     Query: "🔍",
   };
-  return icons[action];
+
+  // 检查动作是否包含"Add"或"Edit"，并返回相应的图标
+  if (action.includes("Add")) {
+    return icons.Add;
+  } else if (action.includes("Edit")) {
+    return icons.Edit;
+  } else {
+    // 对于不包含"Add"或"Edit"的其他情况，如"Delete"和"Query"
+    return icons[action] || 'Unknown Action'; // 如果没有匹配，返回默认值
+  }
 };
+
 
 const Card = ({ action, icon, onClick }) => (
   <div className="flex-1 p-4 bg-white rounded-lg shadow cursor-pointer" onClick={onClick}>
@@ -111,11 +123,40 @@ const Modal = ({ modalInfo, onClose }) => {
           {/* 博客删除的表单或其他内容 */}
         </>
       );
-    }else if (section === 'Home' && type === 'Delete') {
+    }else if (section === 'Home' && type === 'S_Add') {
       return (
         <>
-          <h2 className="text-xl font-bold">删除主页内容</h2>
-          {/* 主页删除的确认或其他内容 */}
+          <AddWareModal apiPath={process.env.REACT_APP_HOME_SOFTWARE_ADD}/>
+          {/* 博客删除的表单或其他内容 */}
+        </>
+      );
+    }
+    else if (section === 'Home' && type === 'S_Edit') {
+      return (
+        <>
+          <EditWareModal apiPath={process.env.REACT_APP_HOME_SOFTWARE_EDIT} queryApiPath={process.env.REACT_APP_HOME_SOFTWARE_QUERY} />
+          {/* 博客删除的表单或其他内容 */}
+        </>
+      );
+    }else if (section === 'Home' && type === 'H_Add') {
+      return (
+        <>
+          <AddWareModal apiPath={process.env.REACT_APP_HOME_HARDWARE_ADD}/>
+          {/* 博客删除的表单或其他内容 */}
+        </>
+      );
+    }
+    else if (section === 'Home' && type === 'H_Edit') {
+      return (
+        <>
+          <EditWareModal apiPath={process.env.REACT_APP_HOME_HARDWARE_EDIT}  queryApiPath={process.env.REACT_APP_HOME_HARDWARE_QUERY} />
+          {/* 博客删除的表单或其他内容 */}
+        </>
+      );
+    }else if (section === 'Home' && type === 'C_Edit') {
+      return (
+        <>
+          <CarouselEditModal/>
         </>
       );
     }

@@ -1,5 +1,4 @@
 const LeftContent = ({ toc, activeId }) => {
-    console.log(`Active ID in LeftContent: ${activeId}`);
 
     const getIndentLevel = (tagName) => {
         switch (tagName) {

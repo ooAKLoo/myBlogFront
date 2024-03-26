@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { marked } from 'marked';
 import LeftContent from './LeftContent ';
 import PlaceHolder from '../utils/PlaceHolder';
@@ -30,6 +30,7 @@ const buildTocFromHtml = (html) => {
 
 const BlogDetail = () => {
     let { id } = useParams();
+    const location = useLocation();
 
     const [content, setContent] = useState('');
 
@@ -42,34 +43,28 @@ const BlogDetail = () => {
 
 
     useEffect(() => {
-        // 根据id选择对应的Markdown文件
-        const fileName = id === '0' ? 'bt.md' : id === '1' ? 'bt2.md' : id === '2' ? 'bt4.md' : null;
-        if (fileName) {
-            // 构造文件的URL
-            const fileUrl = `https://dongju.obs.cn-north-4.myhuaweicloud.com/${fileName}`;
+        // 获取传递的markdownUrl
+        const markdownUrl = location.state?.markdownUrl;
 
+        if (markdownUrl) {
+            setIsLoading(true);
             // 获取并显示Markdown文件的内容
-            fetch(fileUrl)
-                .then((response) => {
-                    console.log(`Response Status: ${response.status}`); // 检查响应状态
-                    return response.text();
-                })
+            fetch(markdownUrl)
+                .then((response) => response.text())
                 .then((text) => {
                     // 使用marked解析Markdown内容
                     const html = marked(text);
-
                     setContent(html);
-
-                    // 使用上述函数从转换后的HTML构建toc
                     const newToc = buildTocFromHtml(html);
                     setToc(newToc);
                     setIsLoading(false);
                 })
-                .catch((err) => console.error(`Fetching or parsing failed:`, err));
-        } else {
-            console.log("Invalid ID or file name not found.");
+                .catch((err) => {
+                    console.error(`Fetching or parsing failed:`, err);
+                    setIsLoading(false);
+                });
         }
-    }, [id]); // 确保id作为依赖，以便于参数变化时重新触发
+    }, [location, id]);
 
     // 状态：是否是宽屏模式
     const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > window.innerHeight);
@@ -149,23 +144,27 @@ const BlogDetail = () => {
             className="flex flex-col md:flex-row min-h-screen"
         >
             {isLoading ? (
-                <div className="space-y-2 animate-pulse w-full min-h-screen rounded-2xl flex justify-center items-start flex-col bg-white">
-                    <div className="w-12 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-full h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-3/4 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-full h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-3/4 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-full h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
-                    <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
-                </div>
+                <>
+                    <PlaceHolder />
+                    <div className="space-y-2 animate-pulse w-3/4 min-h-screen rounded-2xl flex justify-center items-center flex-col bg-white">
+                        <div className="w-12 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-full h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-3/4 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-full h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-3/4 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-1/2 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-full h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-2/3 h-4 bg-gray-300 rounded-md"></div>
+                        <div className="w-5/6 h-4 bg-gray-300 rounded-md"></div>
+                    </div>
+                    <PlaceHolder />
+                </>
             ) : (
                 <>
                     {/* 显示解析后的Markdown内容 */}
